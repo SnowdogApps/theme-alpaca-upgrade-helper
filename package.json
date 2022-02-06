@@ -1,0 +1,29 @@
+{
+  "name": "theme-alpaca-upgrade-helper",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "type": "module",
+  "author": "Ola Frankowska",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "inquirer": "^8.2.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.8.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.0.0"
+  },
+  "engines": {
+    "node": ">=16.12.0 <17.0.0"
+  },
+  "volta": {
+    "node": "16.12.0"
+  }
+}
