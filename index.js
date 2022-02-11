@@ -19,8 +19,8 @@ const questions = [
 ]
 const { rootPath, childThemePath } = await inquirer.prompt(questions)
 const alpacaThemePath = `${rootPath}/vendor/snowdog/theme-frontend-alpaca`
-const customVariablesFilePath = '/Snowdog_Components/components/Atoms/variables'
-let customVariablesFile = await readdir(`${childThemePath}${customVariablesFilePath}`)
+const customVariablesFilePath = 'Snowdog_Components/components/Atoms/variables'
+let customVariablesFile = await readdir(`${childThemePath}/${customVariablesFilePath}`)
 customVariablesFile = customVariablesFile
   .toString()
   .replace('_', '')
@@ -125,6 +125,21 @@ async function updateComponentsBuildStyles () {
   }
 }
 
+async function updateCheckoutStyles () {
+  const file = 'Magento_Checkout/styles/checkout.scss'
+
+  try {
+    const customVariablesImport = `@import '../../${customVariablesFilePath}/${customVariablesFile}';`
+    let content = await readFile(pathToFileURL(`${alpacaThemePath}/${file}`), 'utf-8')
+    content = content.replace('// Component variables', `${todoComment}\n\n// Variables\n${customVariablesImport}`)
+
+    await writeFile(`${childThemePath}/${file}`, content)
+    console.log(chalk.green(`+ Updated ${childThemePath}/${file}`))
+  } catch (err) {
+    console.error(chalk.red(err))
+  }
+}
+
 async function updateStyles () {
   const oldFiles = [
     '_theme.scss',
@@ -148,7 +163,7 @@ async function updateStyles () {
     'critical.scss',
     'styles.scss'
   ]
-  const customVariablesImport = `@import '..${customVariablesFilePath}/${customVariablesFile}';`
+  const customVariablesImport = `@import '../${customVariablesFilePath}/${customVariablesFile}';`
 
   for (const file of newFiles) {
     try {
@@ -166,5 +181,6 @@ async function updateStyles () {
 
 await updateComponentStyles()
 await updateComponentsBuildStyles()
+await updateCheckoutStyles()
 await updateStyles()
-console.log(chalk.magenta.bold('Check your theme to see the results 🤞 New files should include a TODO that requires your action.'))
+console.log(chalk.magenta.bold('Check your theme to see the results 🤞 Some files should include a TODO that requires your action.'))
