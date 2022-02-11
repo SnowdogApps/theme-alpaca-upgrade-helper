@@ -59,7 +59,7 @@ async function updateComponentStyles () {
               )
             }
             await unlink(file)
-            console.log(chalk.green(`- Removed ${childThemePath}/${file}`))
+            console.log(chalk.green(`- Removed ${file}`))
           } catch (err) {
             console.error(chalk.red(err))
             process.exit(1)
