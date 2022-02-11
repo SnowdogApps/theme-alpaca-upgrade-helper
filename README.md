@@ -1,5 +1,5 @@
-# Theme Alpaca upgrade helper
-Automates some tedious work when updating child theme styles for Theme Alpaca `>= 2.26.0`.
+# Theme Alpaca Upgrade Helper
+Automates some tedious work when updating child theme styles for [Theme Alpaca](https://github.com/SnowdogApps/magento2-alpaca-theme/) `>= 2.26.0`.
 
 ## Installation
 1. Clone this repo.
