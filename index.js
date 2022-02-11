@@ -38,7 +38,7 @@ async function updateComponentStyles () {
   atomicDirectories.map((dir, index) => (oldFiles[index] = `${childThemePath}/Snowdog_Components/components/${dir}/_components.scss`))
   const newDirectory = 'Snowdog_Components/components/styles'
   const extendedStyles = []
-  const regex = /@import '([\w_/]*)-extend'/g
+  const regex = /@import '([\w-_/]*)-extend'/g
   const filePathIndex = ('@import \'').length
 
   for (const [index, file] of oldFiles.entries()) {
@@ -55,7 +55,7 @@ async function updateComponentStyles () {
               extendedStyles.push(
                 [str.slice(0, filePathIndex), `../${atomicDirectories[index]}/`, str.slice(filePathIndex)]
                   .join('')
-                  .replace('-extend\'', '')
+                  .replace('-extend\'', '\'')
               )
             }
             await unlink(file)
@@ -86,11 +86,11 @@ async function updateComponentStyles () {
     try {
       let content = await readFile(pathToFileURL(`${alpacaThemePath}/${file}`), 'utf-8')
       extendedStyles.forEach(style => {
-        content = content.replace(style, `${style}-extend`)
+        content = content.replace(style, `${style.slice(0, -1)}-extend'`)
       })
 
       if (content.includes('extend')) {
-        content = content.replaceAll('-extend\'', '-extend\' // Extend')
+        content = content.replaceAll('-extend\';', '-extend\'; // Extend')
         await writeFile(`${childThemePath}/${file}`, `${todoComment}\n\n${content}`)
         console.log(chalk.green(`+ Added ${childThemePath}/${file}`))
       }
