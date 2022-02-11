@@ -183,4 +183,9 @@ await updateComponentStyles()
 await updateComponentsBuildStyles()
 await updateCheckoutStyles()
 await updateStyles()
-console.log(chalk.magenta.bold('Check your theme to see the results 🤞 Some files should include a TODO that requires your action.'))
+
+console.log(chalk.magenta.bold(`
+Check your theme to see the results 🤞
+* Some files should include a TODO that requires your action
+* Please make sure to update Magento_Theme/templates/root.phtml
+`))
